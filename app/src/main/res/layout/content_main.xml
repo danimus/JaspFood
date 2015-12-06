@@ -12,8 +12,11 @@
     tools:context="com.mc.jaspfood.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+
+    <com.andtinder.view.CardContainer
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/layoutview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
 </RelativeLayout>
