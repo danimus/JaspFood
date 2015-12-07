@@ -12,14 +12,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-import com.andtinder.model.CardModel;
-import com.andtinder.model.Orientations;
-import com.andtinder.view.CardContainer;
-import com.andtinder.view.SimpleCardStackAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
-    private CardContainer mCardContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,50 +23,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         Resources r = getResources();
 
-        mCardContainer = (CardContainer) findViewById(R.id.layoutview);
-
-        mCardContainer.setOrientation(Orientations.Orientation.Disordered);
-
-        SimpleCardStackAdapter adapter = new SimpleCardStackAdapter(this);
-
-        //CardModel card = new CardModel("Title1", "Description goes here", r.getDrawable(R.drawable.picture1);
-
-        adapter.add(new CardModel("Title1", "Description goes here", r.getDrawable(R.drawable.picture1)));
-
-        CardModel cardModel = new CardModel("Title1", "Description goes here", r.getDrawable(R.drawable.picture1));
-        cardModel.setOnClickListener(new CardModel.OnClickListener() {
-            @Override
-            public void OnClickListener() {
-                Log.i("Swipeable Cards", "I am pressing the card");
-            }
-        });
-
-        cardModel.setOnCardDimissedListener(new CardModel.OnCardDimissedListener() {
-            @Override
-            public void onLike() {
-                Log.d("Swipeable Card", "I liked it");
-            }
-
-            @Override
-            public void onDislike() {
-                Log.d("Swipeable Card", "I did not liked it");
-            }
-        });
-
-        adapter.add(cardModel);
-
-        mCardContainer.setAdapter(adapter);
     }
 
 
