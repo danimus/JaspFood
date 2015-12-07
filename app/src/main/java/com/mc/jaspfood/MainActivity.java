@@ -53,10 +53,21 @@ public class MainActivity extends AppCompatActivity {
         cardModel.setOnClickListener(new CardModel.OnClickListener() {
             @Override
             public void OnClickListener() {
-                Log.i("Swipeable Cards","I am pressing the card");
+                Log.i("Swipeable Cards", "I am pressing the card");
             }
         });
 
+        cardModel.setOnCardDimissedListener(new CardModel.OnCardDimissedListener() {
+            @Override
+            public void onLike() {
+                Log.d("Swipeable Card", "I liked it");
+            }
+
+            @Override
+            public void onDislike() {
+                Log.d("Swipeable Card", "I did not liked it");
+            }
+        });
 
         adapter.add(cardModel);
 
