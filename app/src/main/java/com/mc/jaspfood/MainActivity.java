@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onLeftCardExit(Object dataObject) {
+                Log.d("onLeftCardExit",dataObject.toString());
                 al.remove(0);
                 myAppAdapter.notifyDataSetChanged();
                 //Do something on the left!
@@ -72,9 +73,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onRightCardExit(Object dataObject) {
-
+               Food f =  al.get(0);
+                Log.d("ARRAY", f.getDescription());
                 al.remove(0);
                 myAppAdapter.notifyDataSetChanged();
+                Log.d("onRightCardExit", dataObject.toString());
+
             }
 
             @Override
