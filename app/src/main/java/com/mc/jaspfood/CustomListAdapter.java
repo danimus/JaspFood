@@ -26,8 +26,8 @@ public class CustomListAdapter extends ArrayAdapter<Food> {
         LayoutInflater inflater=context.getLayoutInflater();
         View rowView=inflater.inflate(R.layout.ranking_item, null,true);
 
-        TextView txtTitle = (TextView) rowView.findViewById(R.id.item);
-        TextView extratxt = (TextView) rowView.findViewById(R.id.textView1);
+        TextView txtTitle = (TextView) rowView.findViewById(R.id.itemname);
+        TextView extratxt = (TextView) rowView.findViewById(R.id.votes);
 
         txtTitle.setText(a.get(position).getDescription());
 

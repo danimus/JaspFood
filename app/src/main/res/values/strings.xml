@@ -2,8 +2,7 @@
     <string name="app_name">JaspFood</string>
     <string name="action_settings">Settings</string>
     <string name="about_us">About us</string>
-    <string name="title_activity_about_us">AboutUs</string>
+    <string name="title_activity_about_us">About Us</string>
     <string name="ranking">Ranking</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_ranking">RankingActivity</string>
+    <string name="title_activity_ranking">Ranking</string>
 </resources>
