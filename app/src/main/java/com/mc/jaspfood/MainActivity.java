@@ -6,17 +6,25 @@ import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.support.v7.widget.Toolbar;
 
 
 import com.bumptech.glide.Glide;
 import com.lorentzos.flingswipe.FlingCardListener;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
+import com.parse.FindCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static MyAppAdapter myAppAdapter;
     public static ViewHolder viewHolder;
-    private ArrayList<Food> al;
+    private ArrayList < Food > al;
     private SwipeFlingAdapterView flingContainer;
 
 
@@ -38,31 +46,48 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
-        al = new ArrayList<>();
+        al = new ArrayList < > ();
         al.add(new Food("http://i.ytimg.com/vi/PnxsTxV8y3g/maxresdefault.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
         al.add(new Food("http://switchboard.nrdc.org/blogs/dlashof/mission_impossible_4-1.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
         al.add(new Food("http://i.ytimg.com/vi/PnxsTxV8y3g/maxresdefault.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
         al.add(new Food("http://switchboard.nrdc.org/blogs/dlashof/mission_impossible_4-1.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
         al.add(new Food("http://i.ytimg.com/vi/PnxsTxV8y3g/maxresdefault.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
+        Parse.initialize(this, "SbBqX0xwl4xJDydLGDkEXcf8M1LhpfRkO6wIkvfg", "KCnKe8imy5QhETsD6v3cVQ44KOjueMzWRa0CAL0m");
+        ParseQuery <ParseObject> query = ParseQuery.getQuery("food");
+        query.findInBackground(new FindCallback <ParseObject> () {
+            public void done(List < ParseObject > objects, ParseException e) {
+                if (e == null) {
+                    Log.d("Number of elements",""+objects.size());
+                    //objectsWereRetrievedSuccessfully(objects);
+                } else {
+                    //objectRetrievalFailed();
+                }
+            }
+        });
 
         myAppAdapter = new MyAppAdapter(al, MainActivity.this);
         flingContainer.setAdapter(myAppAdapter);
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
             @Override
+
             public void removeFirstObjectInAdapter() {
 
-            }
+        }
 
             @Override
             public void onLeftCardExit(Object dataObject) {
-                Log.d("onLeftCardExit",dataObject.toString());
+                Log.d("onLeftCardExit", dataObject.toString());
                 al.remove(0);
                 myAppAdapter.notifyDataSetChanged();
                 //Do something on the left!
@@ -73,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onRightCardExit(Object dataObject) {
-               Food f =  al.get(0);
+                Food f = al.get(0);
                 Log.d("ARRAY", f.getDescription());
                 al.remove(0);
                 myAppAdapter.notifyDataSetChanged();
@@ -91,24 +116,50 @@ public class MainActivity extends AppCompatActivity {
 
                 View view = flingContainer.getSelectedView();
                 view.findViewById(R.id.background).setAlpha(0);
-                view.findViewById(R.id.item_swipe_right_indicator).setAlpha(scrollProgressPercent < 0 ? -scrollProgressPercent : 0); view.findViewById(R.id.item_swipe_left_indicator).setAlpha(scrollProgressPercent > 0 ? scrollProgressPercent : 0);
+                view.findViewById(R.id.item_swipe_right_indicator).setAlpha(scrollProgressPercent < 0 ? -scrollProgressPercent : 0);
+                view.findViewById(R.id.item_swipe_left_indicator).setAlpha(scrollProgressPercent > 0 ? scrollProgressPercent : 0);
             }
         });
 
 
         // Optionally add an OnItemClickListener
-        flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClicked(int itemPosition, Object dataObject) {
+        flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {@Override
+                                                                                               public void onItemClicked(int itemPosition, Object dataObject) {
 
-                View view = flingContainer.getSelectedView();
-                view.findViewById(R.id.background).setAlpha(0);
+            View view = flingContainer.getSelectedView();
+            view.findViewById(R.id.background).setAlpha(0);
 
-                myAppAdapter.notifyDataSetChanged();
-            }
+            myAppAdapter.notifyDataSetChanged();
+        }
         });
 
+
+
+
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
 
     public static class ViewHolder {
@@ -122,10 +173,10 @@ public class MainActivity extends AppCompatActivity {
     public class MyAppAdapter extends BaseAdapter {
 
 
-        public List<Food> parkingList;
+        public List < Food > parkingList;
         public Context context;
 
-        private MyAppAdapter(List<Food> apps, Context context) {
+        private MyAppAdapter(List < Food > apps, Context context) {
             this.parkingList = apps;
             this.context = context;
         }
@@ -171,5 +222,7 @@ public class MainActivity extends AppCompatActivity {
 
             return rowView;
         }
+
+
     }
 }
