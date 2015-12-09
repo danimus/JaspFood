@@ -10,17 +10,17 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class CustomListAdapter extends ArrayAdapter<String> {
+public class CustomListAdapter extends ArrayAdapter<Food> {
 
     private final Activity context;
-    private final ArrayList<Food> aA;
+    private final ArrayList<Food> a;
 
     public CustomListAdapter(Activity context, ArrayList<Food> a) {
-        super(context, R.layout.ranking_item);
+        super(context, R.layout.ranking_item, a);
         // TODO Auto-generated constructor stub
 
         this.context=context;
-        this.aA=a;
+        this.a=a;
     }
 
     public View getView(int position,View view,ViewGroup parent) {
@@ -30,9 +30,9 @@ public class CustomListAdapter extends ArrayAdapter<String> {
         TextView txtTitle = (TextView) rowView.findViewById(R.id.item);
         TextView extratxt = (TextView) rowView.findViewById(R.id.textView1);
 
-        txtTitle.setText(aA.get(position).getDescription());
+        txtTitle.setText(a.get(position).getDescription());
 
-        extratxt.setText(aA.get(position).getVotes()+"");
+        extratxt.setText(a.get(position).getVotes()+"");
         return rowView;
 
     };
