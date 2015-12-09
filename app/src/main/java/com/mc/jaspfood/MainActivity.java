@@ -1,6 +1,7 @@
 package com.mc.jaspfood;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
@@ -153,8 +154,14 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_about_us) {
+            Intent intent = new Intent(this, AboutUs.class);
+            startActivity(intent);
+
             return true;
+        }else if(id == R.id.action_ranking){
+            Intent intent = new Intent(this, RankingActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
