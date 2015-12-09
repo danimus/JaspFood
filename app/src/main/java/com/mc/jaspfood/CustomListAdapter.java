@@ -28,12 +28,11 @@ public class CustomListAdapter extends ArrayAdapter<String> {
         View rowView=inflater.inflate(R.layout.ranking_item, null,true);
 
         TextView txtTitle = (TextView) rowView.findViewById(R.id.item);
-        ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
         TextView extratxt = (TextView) rowView.findViewById(R.id.textView1);
 
         txtTitle.setText(aA.get(position).getDescription());
-        imageView.setImageResource(aA.get(position).getImagePath();
-        extratxt.setText("Description "+itemname[position]);
+
+        extratxt.setText(aA.get(position).getVotes()+"");
         return rowView;
 
     };
