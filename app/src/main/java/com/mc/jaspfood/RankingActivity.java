@@ -29,7 +29,7 @@ public class RankingActivity extends AppCompatActivity {
         };
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, values);
+                R.layout.ranking_item, R.id.firstLine, values);
 
         listView.setAdapter(adapter);
 

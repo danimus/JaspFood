@@ -3,12 +3,13 @@ package com.mc.jaspfood;
 public class Food {
 
     private String description;
-
     private String imagePath;
+    private int votes;
 
     public Food(String imagePath, String description) {
         this.imagePath = imagePath;
         this.description = description;
+        this.votes = votes;
     }
 
     public String getDescription() {
@@ -18,5 +19,7 @@ public class Food {
     public String getImagePath() {
         return imagePath;
     }
+
+    public int getVotes() { return votes; }
 
 }
