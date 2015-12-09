@@ -4,7 +4,13 @@ public class Food {
 
     private String description;
     private String imagePath;
-    private int votes;
+    private String votes;
+
+    public Food(String imagePath, String description, String votes) {
+        this.imagePath = imagePath;
+        this.description = description;
+        this.votes = votes;
+    }
 
     public Food(String imagePath, String description) {
         this.imagePath = imagePath;
@@ -20,6 +26,6 @@ public class Food {
         return imagePath;
     }
 
-    public int getVotes() { return votes; }
+    public String getVotes() { return votes; }
 
 }

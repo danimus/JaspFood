@@ -59,20 +59,16 @@ public class MainActivity extends AppCompatActivity {
         flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
         al = new ArrayList < > ();
-        al.add(new Food("http://i.ytimg.com/vi/PnxsTxV8y3g/maxresdefault.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
-        al.add(new Food("http://switchboard.nrdc.org/blogs/dlashof/mission_impossible_4-1.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
-        al.add(new Food("http://i.ytimg.com/vi/PnxsTxV8y3g/maxresdefault.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
-        al.add(new Food("http://switchboard.nrdc.org/blogs/dlashof/mission_impossible_4-1.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
-        al.add(new Food("http://i.ytimg.com/vi/PnxsTxV8y3g/maxresdefault.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
         Parse.initialize(this, "SbBqX0xwl4xJDydLGDkEXcf8M1LhpfRkO6wIkvfg", "KCnKe8imy5QhETsD6v3cVQ44KOjueMzWRa0CAL0m");
         ParseQuery <ParseObject> query = ParseQuery.getQuery("food");
         query.findInBackground(new FindCallback <ParseObject> () {
             public void done(List < ParseObject > objects, ParseException e) {
                 if (e == null) {
-                    Log.d("Number of elements",""+objects.size());
-                    //objectsWereRetrievedSuccessfully(objects);
+                    for (ParseObject product : objects) {
+                        al.add(new Food((String) product.get("imagePath"), (String) product.get("description")));
+                    }
                 } else {
-                    //objectRetrievalFailed();
+                    Log.d("ERROR","Failed to retrieve Parse objects");
                 }
             }
         });
